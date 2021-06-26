@@ -115,4 +115,4 @@ max_seq_length = arg.max_seq_length # initially was 128, but i changed to 512
 vocab_size = 30522
 model_name = arg.model_name
 
-small = False #arg.small
+small = arg.small
