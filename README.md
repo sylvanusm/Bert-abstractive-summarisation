@@ -11,7 +11,8 @@ This repository is inspired from https://github.com/nayeon7lee/bert-summarizatio
 To train the model you can run for example:. 
 `CUDA_VISIBLE_DEVICES=3 python main.py --cuda --batch_size=2 --hop 4 --hidden_dim 100`
 or `python main.py --batch_size=2 --hop 4 --hidden_dim 100` if you want to run on cpu
-batch_size, hop and hidden_dim can be change as well as all the hyper-parameters located in `utils/config.py`
+batch_size, hop and hidden_dim can be change as well as all the hyper-parameters located in `utils/config.py` except `--emb_dim` , `--heads` that have to match the used model (`--model_name`) by defauld `bert-large-uncased`
 
-to fine-tune `bert-large-uncased` based model, one can run for example
+To fine-tune with `bert-large-uncased` based model, one can run for example
 `python main.py --batch_size=1 --hop 4 --hidden_dim 100 --model_name bert-large-uncased --emb_dim 1024 --heads 16`
+

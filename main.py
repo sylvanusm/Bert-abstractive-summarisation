@@ -41,7 +41,7 @@ def train_draft():
 
             if i%eval_iterval==0:
                 # model.eval()
-                loss,r_avg = evaluate(model,val_dl,model_name=config.model,ty="train")
+                loss,r_avg, r1, r2, rl= evaluate(model,val_dl,model_name=config.model,ty="train")
                 # each epoch is long,so just do early stopping here. 
                 if(r_avg > best_rouge):
                     best_rouge = r_avg
@@ -52,7 +52,7 @@ def train_draft():
                 if(cnt > 20): break
                 # model.train()
         # model.eval()
-        loss,r_avg = evaluate(model,val_dl,model_name=config.model,ty="valid")
+        loss,r_avg, r1, r2, rl = evaluate(model,val_dl,model_name=config.model,ty="valid")
 
 
 if __name__ == "__main__":

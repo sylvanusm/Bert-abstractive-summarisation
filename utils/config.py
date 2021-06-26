@@ -19,6 +19,8 @@ parser.add_argument("--hidden_dim", type=int, default=3072)
 parser.add_argument("--emb_dim", type=int, default=768)
 parser.add_argument("--batch_size", type=int, default=36)
 parser.add_argument("--lr", type=float, default=0.0003)
+parser.add_argument("--epochs", type=int, default=1)
+parser.add_argument("--experiment", type=str, default="test")
 parser.add_argument("--max_grad_norm", type=float, default=2.0)
 parser.add_argument("--max_enc_steps", type=int, default=400)
 parser.add_argument("--max_dec_steps", type=int, default=seq_len) #100
@@ -81,7 +83,7 @@ use_oov_emb = arg.use_oov_emb
 cov_loss_wt = 1.0
 lr_coverage=0.15
 eps = 1e-12
-epochs = 30 #4
+epochs = arg.epochs
 UNK_idx = 0
 PAD_idx = 1
 EOS_idx = 2

@@ -615,4 +615,4 @@ def evaluate(model, data, model_name='trs', ty='valid', verbose=True):
             print(hyp)
             print("GOLD: ")
             print(gold)
-    return loss, r_avg
+    return loss, r_avg, r1, r2, rl
