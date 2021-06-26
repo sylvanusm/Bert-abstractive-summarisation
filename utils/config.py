@@ -116,3 +116,4 @@ vocab_size = 30522
 model_name = arg.model_name
 
 small = arg.small
+experiment = arg.experiment
