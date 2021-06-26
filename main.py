@@ -2,6 +2,7 @@ from model.transformer import Summarizer
 from model.common_layer import evaluate
 from utils import config
 import torch
+import wandb
 import torch.nn as nn
 import torch.nn.functional as F
 from tqdm import tqdm
@@ -28,7 +29,19 @@ def train_draft():
 
     best_rouge = 0 
     cnt = 0
-    eval_iterval = 500
+    eval_iterval = 300
+    wandb.init(project=config.experiment, config={
+              "model_name": config.model_name,
+              "learning_rate": config.lr,
+              "batch_size": config.batch_size,
+              "hop": config.hop,
+              "heads": config.heads,
+              "epochs": config.epochs,
+              "beam_size": config.beam_size,
+              "emb_dim": config.emb_dim,
+              'cuda': config.USE_CUDA
+          })
+    conf = wandb.config
     for e in range(config.epochs):
         # model.train()
         print("Epoch", e)
@@ -41,7 +54,13 @@ def train_draft():
 
             if i%eval_iterval==0:
                 # model.eval()
-                loss,r_avg, r1, r2, rl= evaluate(model,val_dl,model_name=config.model,ty="train")
+                loss,r_avg, r1, r2, rl = evaluate(model,val_dl,model_name=config.model,ty="train")
+                wandb.log({"epoch": e,
+                   "loss":loss, 
+                   "r_avg":r_avg,
+                   "r1":r1,
+                   "r2":r2,
+                   "rl":rl})
                 # each epoch is long,so just do early stopping here. 
                 if(r_avg > best_rouge):
                     best_rouge = r_avg
@@ -54,6 +73,7 @@ def train_draft():
         # model.eval()
         loss,r_avg, r1, r2, rl = evaluate(model,val_dl,model_name=config.model,ty="valid")
 
+    wandb.finish()
 
 if __name__ == "__main__":
     train_draft()
